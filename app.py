@@ -5,10 +5,13 @@ import stripe
 import os
 from dotenv import load_dotenv
 import requests
+from flask_cors import CORS
+
 
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)  # ← Esto permite solicitudes desde otros dominios como terapyel.com
 
 print("⚙️ Flask está corriendo desde Render.")
 
