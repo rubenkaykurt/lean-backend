@@ -10,6 +10,12 @@ load_dotenv()
 
 app = Flask(__name__)
 
+print("⚙️ Flask está corriendo desde Render.")
+
+@app.route("/")
+def home():
+    return "Backend funcionando correctamente ✅"
+
 # Configurar Stripe
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
