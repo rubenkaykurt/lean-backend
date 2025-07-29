@@ -27,27 +27,26 @@ SUCCESS_URL = os.getenv("SUCCESS_URL", "https://www.terapyel.com/panel-gpt")
 CANCEL_URL = os.getenv("CANCEL_URL", "https://www.terapyel.com/asistente-formulacion")
 
 # Endpoint para crear la sesión de pago
-@app.route("/create-checkout-session", methods=["POST"])
+@app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
     try:
-        print("➡️ Solicitud recibida correctamente. Procediendo a crear sesión.")
-
         session = stripe.checkout.Session.create(
-            payment_method_types=["card"],
-            mode="subscription",
-            line_items=[{
-                "price": os.getenv("price_1Rq0D9GX2pDFXvsUnYFeYeji"),
-                "quantity": 1,
-            }],
-            success_url=SUCCESS_URL + "?session_id={CHECKOUT_SESSION_ID}",
-            cancel_url=CANCEL_URL,
+            payment_method_types=['card'],
+            mode='subscription',
+            line_items=[
+                {
+                    'price': 'price_1Rq0D9GX2pDFXvsUnYFeYeji',  # ✅ TU price_id correcto
+                    'quantity': 1,
+                }
+            ],
+            success_url='https://www.terapyel.com/panel-gpt?success=true',
+            cancel_url='https://www.terapyel.com/asistente-formulacion?canceled=true',
         )
-
-        print("✅ Sesión creada:", session.id)
-        return jsonify({"url": session.url})
+        return jsonify({'url': session.url})
     except Exception as e:
-        print("❌ Error creando sesión:", str(e))
-        return jsonify(error=str(e)), 400
+        print(f"❌ Error creando sesión: {e}")
+        return jsonify({'error': str(e)}), 400
+
 
 # Webhook para recibir notificación de Stripe y crear usuario en Lean Automation
 @app.route("/webhook", methods=["POST"])
