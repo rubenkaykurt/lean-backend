@@ -35,10 +35,13 @@ def create_checkout_session():
             mode='subscription',
             line_items=[
                 {
-                    'price': 'price_1Rq0D9GX2pDFXvsUnYFeYeji',  # ✅ TU price_id correcto
+                    'price': 'price_1Rq0D9GX2pDFXvsUnYFeYeji',
                     'quantity': 1,
                 }
             ],
+            subscription_data={
+                'trial_period_days': 30  # ✅ Aquí defines los 30 días gratis
+            },
             success_url='https://www.terapyel.com/panel-gpt?success=true',
             cancel_url='https://www.terapyel.com/asistente-formulacion?canceled=true',
         )
