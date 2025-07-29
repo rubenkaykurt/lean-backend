@@ -30,6 +30,8 @@ CANCEL_URL = os.getenv("CANCEL_URL", "https://www.terapyel.com/asistente-formula
 @app.route("/create-checkout-session", methods=["POST"])
 def create_checkout_session():
     try:
+         print("✅ Petición recibida para crear sesión de pago")
+
         session = stripe.checkout.Session.create(
             payment_method_types=["card"],
             mode="subscription",
@@ -40,8 +42,11 @@ def create_checkout_session():
             success_url=SUCCESS_URL + "?session_id={CHECKOUT_SESSION_ID}",
             cancel_url=CANCEL_URL,
         )
+
+        print("✅ Sesión creada:", session.id)
         return jsonify({"url": session.url})
     except Exception as e:
+        print("❌ Error creando sesión:", str(e))
         return jsonify(error=str(e)), 400
 
 # Webhook para recibir notificación de Stripe y crear usuario en Lean Automation
