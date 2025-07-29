@@ -36,7 +36,7 @@ def create_checkout_session():
             payment_method_types=["card"],
             mode="subscription",
             line_items=[{
-                "price": os.getenv("STRIPE_PRICE_ID"),
+                "price": os.getenv("price_1Rq0D9GX2pDFXvsUnYFeYeji"),
                 "quantity": 1,
             }],
             success_url=SUCCESS_URL + "?session_id={CHECKOUT_SESSION_ID}",
