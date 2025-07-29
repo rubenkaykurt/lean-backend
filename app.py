@@ -30,8 +30,7 @@ CANCEL_URL = os.getenv("CANCEL_URL", "https://www.terapyel.com/asistente-formula
 @app.route("/create-checkout-session", methods=["POST"])
 def create_checkout_session():
     try:
-        data = request.get_json()
-        print("➡️ Datos recibidos del frontend:", data)
+        print("➡️ Solicitud recibida correctamente. Procediendo a crear sesión.")
 
         session = stripe.checkout.Session.create(
             payment_method_types=["card"],
